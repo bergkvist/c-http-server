@@ -24,6 +24,6 @@ int main() {
     printf("Listening on http://%s:%hu\n", host, port);
     while (1) {
         int accepted_sock = assert_ok(accept(sock, NULL, NULL));
-        write(accepted_sock, "HTTP/1.1 404 OK\nContent-Length: 12\n\nHello world!", 48);
+        write(accepted_sock, "HTTP/1.1 200 HELLO WORLD\nContent-Length: 12\n\nHello world!", 57);
     }
 }
