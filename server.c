@@ -18,12 +18,13 @@ int main() {
     };
     int sock = assert_ok(socket(AF_INET, SOCK_STREAM, IPPROTO_IP));
     assert_ok(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &reuseaddr, sizeof reuseaddr));
-    assert_ok(bind(sock, (struct sockaddr*)&server_address, sizeof(server_address)));
+    assert_ok(bind(sock, (struct sockaddr*)&server_address, sizeof server_address));
     assert_ok(listen(sock, listen_backlog));
 
     printf("Listening on http://%s:%hu\n", host, port);
     while (1) {
-        int accepted_sock = assert_ok(accept(sock, NULL, NULL));
+        int accepted_sock = accept(sock, NULL, NULL);
         write(accepted_sock, "HTTP/1.1 200 HELLO WORLD\nContent-Length: 12\n\nHello world!", 57);
+        close(accepted_sock);
     }
 }
